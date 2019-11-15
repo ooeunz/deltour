@@ -1,5 +1,5 @@
 # Development in progress
-if you have any suggestions, do not hesitate contact me.
+if you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 
 # Mark-1
 Mark-1 is my first chatbot project. It is compare The Iron Man's first model.
