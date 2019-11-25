@@ -1,10 +1,10 @@
-package com.chatbot.mark1;
+package com.chatbot.deltour;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Mark1ApplicationTests {
+class DeltourApplicationTests {
 
     @Test
     void contextLoads() {
