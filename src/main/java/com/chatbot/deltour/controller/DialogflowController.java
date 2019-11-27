@@ -1,6 +1,5 @@
 package com.chatbot.deltour.controller;
 
-import com.chatbot.deltour.model.Message;
 import com.chatbot.deltour.sevice.DialogflowService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

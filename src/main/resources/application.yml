@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: chatbotserver-cjfcf.mongodb.net/test
+      username: deltour
+      password: yums6529
+
