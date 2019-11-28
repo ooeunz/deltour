@@ -9,9 +9,10 @@ import org.springframework.data.annotation.Id;
 @Setter
 @Configuration
 public class Message {
-    @Id
-    private String id;
 
-    private String message;
+    private String intent;
+    private String parameter;
+
+    private String fulfillmentText;
     private String img;
 }
