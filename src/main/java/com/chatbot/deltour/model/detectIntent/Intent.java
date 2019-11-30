@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Document
+@Document(collection="intent")
 public class Intent {
 
     @Id
