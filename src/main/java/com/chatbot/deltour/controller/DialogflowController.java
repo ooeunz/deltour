@@ -1,25 +1,53 @@
 package com.chatbot.deltour.controller;
 
-import com.chatbot.deltour.sevice.DialogflowService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.chatbot.deltour.model.detectIntent.Intent;
+import com.chatbot.deltour.repository.IntentRepository;
+import com.chatbot.deltour.sevice.Impl.DialogflowServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/dialogflow")
 public class DialogflowController {
-    DialogflowService detectIntentService;
 
+    DialogflowServiceImpl dialogflowServiceImpl;
+    IntentRepository intentRepository;
 
-    private DialogflowController(DialogflowService detectIntentService) {
-        this.detectIntentService = detectIntentService;
+    @Autowired
+    private DialogflowController(DialogflowServiceImpl dialogflowServiceImpl, IntentRepository intentRepository) {
+        this.dialogflowServiceImpl = dialogflowServiceImpl;
+        this.intentRepository = intentRepository;
     }
 
     @PostMapping("/detectintent")
-    public void DetectIntent(@RequestBody String queryTxt) throws Exception {
+    public Intent DetectIntent(@RequestBody String queryTxt) throws Exception {
 
         String sessionId = "abcdefg";
-        detectIntentService.detectIntentTexts(queryTxt, sessionId);
+        return dialogflowServiceImpl.detectIntentTexts(queryTxt, sessionId);
     }
+
+    // save
+    @PostMapping("/save")
+    public Intent update(@RequestBody Intent intent){
+        this.intentRepository.save(intent);
+        System.out.println("sucess?");
+        return intent;
+    }
+
+    @GetMapping("/findAll")
+    public List<Intent> findAll() {
+        List<Intent> intents = this.intentRepository.findAll();
+        return intents;
+    }
+
+    @GetMapping("/find/{intent}")
+    public Intent find(@PathVariable("intent") String intent) {
+        Intent lst = this.intentRepository.findByIntent(intent);
+        return lst;
+    }
+
+
+
 }
