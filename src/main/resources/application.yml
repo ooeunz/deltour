@@ -1,6 +1,0 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb://deltour:yums6529@chatbotserver-shard-00-00-cjfcf.mongodb.net:27017,chatbotserver-shard-00-01-cjfcf.mongodb.net:27017,chatbotserver-shard-00-02-cjfcf.mongodb.net:27017/test?ssl=true&replicaSet=ChatbotServer-shard-0&authSource=admin&retryWrites=true&w=majority
-      database: deltour
-
