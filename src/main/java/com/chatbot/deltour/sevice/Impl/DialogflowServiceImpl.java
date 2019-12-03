@@ -1,20 +1,21 @@
 package com.chatbot.deltour.sevice.Impl;
 
+import com.chatbot.deltour.dto.ResponseDTO;
 import com.chatbot.deltour.model.detectIntent.Intent;
 import com.chatbot.deltour.model.detectIntent.Response;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.sevice.DialogflowService;
 import com.google.cloud.dialogflow.v2.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-@Repository
+@Service
 public class DialogflowServiceImpl implements DialogflowService {
-    private IntentRepository intentRepository;
 
+    private IntentRepository intentRepository;
     private String projectId = "deltour-mark-2";
     private String languageCode = "ko";
 
@@ -24,8 +25,16 @@ public class DialogflowServiceImpl implements DialogflowService {
         this.intentRepository = intentRepository;
     }
 
+    public ResponseDTO convertResponseDTO(Response response) {
+        return ResponseDTO.builder()
+                .parameter(response.getParameter())
+                .fulfillmentText(response.getFulfillmentText())
+                .img(response.getImg())
+                .build();
+    }
+
     @Override
-    public Intent detectIntentTexts(String queryTxt, String sessionId) throws Exception {
+    public ResponseDTO detectIntentTexts(String queryTxt, String sessionId) throws Exception {
 
         // Instantiates a client
         try (SessionsClient sessionsClient = SessionsClient.create()) {
@@ -39,6 +48,11 @@ public class DialogflowServiceImpl implements DialogflowService {
             DetectIntentResponse response = sessionsClient.detectIntent(session, queryInput);
             QueryResult queryResult = response.getQueryResult();
 
+            // response output
+            String detectIntent = queryResult.getIntent().getDisplayName();
+            Intent intent = this.intentRepository.findByIntent(detectIntent);
+            List<Response> responseList = intent.getResponse();
+
             // console output
             System.out.println("====================");
             System.out.format("Query Text: '%s'\n", queryResult.getQueryText());
@@ -46,17 +60,15 @@ public class DialogflowServiceImpl implements DialogflowService {
                     queryResult.getIntent().getDisplayName(), queryResult.getIntentDetectionConfidence());
             System.out.format("Fulfillment Text: '%s'\n", queryResult.getFulfillmentText());
 
-            // response output
-            String detectIntent = queryResult.getIntent().getDisplayName();
-            Intent intent = this.intentRepository.findByIntent(detectIntent);
-            return intent;
-//            List<Response> responseMessage = intent.getResponse();
-//            String fulfillment = responseMessage.get(0).getFulfillmentText();
-//            return fulfillment;
-
-
-
+            // if Entity is alive
+            if (queryResult.getParameters() != null) {
+                for (Response res : responseList) {
+                    if (queryResult.getParameters().equals(res.getParameter())) {
+                        return convertResponseDTO(res);
+                    }
+                }
+            }
+            return convertResponseDTO(responseList.get(0));
         }
     }
-
 }

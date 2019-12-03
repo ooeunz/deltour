@@ -1,13 +1,14 @@
-package com.chatbot.deltour.model.detectIntent;
+package com.chatbot.deltour.dto;
 
+import com.chatbot.deltour.model.detectIntent.Parameter;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-public class Response {
+@Builder
+public class ResponseDTO {
     private Parameter parameter;
     private String fulfillmentText;
     private String img;
