@@ -1,6 +1,6 @@
 package com.chatbot.deltour.controller;
 
-import com.chatbot.deltour.dto.MemberDTO;
+import com.chatbot.deltour.dto.request.AuthMemberDTO;
 import com.chatbot.deltour.model.member.Member;
 import com.chatbot.deltour.sevice.Impl.MemberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class MemberController {
     }
 
     @PostMapping("/signUp")
-    public MemberDTO signUp(@RequestBody Member member) {
+    public AuthMemberDTO signUp(@RequestBody Member member) {
         return memberServiceImpl.signUp(member);
     }
 

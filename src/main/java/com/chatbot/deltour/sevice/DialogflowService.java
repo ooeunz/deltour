@@ -1,6 +1,6 @@
 package com.chatbot.deltour.sevice;
 
-import com.chatbot.deltour.dto.ResponseDTO;
+import com.chatbot.deltour.dto.response.ResponseDTO;
 import org.springframework.stereotype.Service;
 
 @Service

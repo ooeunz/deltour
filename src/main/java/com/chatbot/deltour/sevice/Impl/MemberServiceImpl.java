@@ -1,6 +1,6 @@
 package com.chatbot.deltour.sevice.Impl;
 
-import com.chatbot.deltour.dto.MemberDTO;
+import com.chatbot.deltour.dto.request.AuthMemberDTO;
 import com.chatbot.deltour.model.member.Member;
 import com.chatbot.deltour.model.member.MemberRole;
 import com.chatbot.deltour.repository.MemberRepository;
@@ -18,11 +18,11 @@ public class MemberServiceImpl {
         this.memberRepository = memberRepository;
     }
 
-    public MemberDTO convertMemberDTO(Member member) {
-        return MemberDTO.builder().email(member.getEmail()).nickName(member.getNickName()).sessionId(member.getSessionId()).build();
+    public AuthMemberDTO convertAuthMemberDTO(Member member) {
+        return AuthMemberDTO.builder().email(member.getEmail()).nickName(member.getNickName()).password(member.getPassword()).build();
     }
 
-    public MemberDTO signUp(Member member) {
+    public AuthMemberDTO signUp(Member member) {
         MemberRole memberRole = new MemberRole();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -30,6 +30,11 @@ public class MemberServiceImpl {
         memberRole.setRoleNickNmae(member.getNickName());
 
         memberRepository.save(member);
-        return convertMemberDTO(member);
+        return convertAuthMemberDTO(member);
+    }
+
+    public AuthMemberDTO findMember(AuthMemberDTO authMemberDTO) {
+        Member member = memberRepository.findByEmail(authMemberDTO.getEmail());
+        return convertAuthMemberDTO(member);
     }
 }

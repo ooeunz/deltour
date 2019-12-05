@@ -1,6 +1,6 @@
 package com.chatbot.deltour.sevice.Impl;
 
-import com.chatbot.deltour.dto.ResponseDTO;
+import com.chatbot.deltour.dto.response.ResponseDTO;
 import com.chatbot.deltour.model.detectIntent.Intent;
 import com.chatbot.deltour.model.detectIntent.Response;
 import com.chatbot.deltour.repository.IntentRepository;

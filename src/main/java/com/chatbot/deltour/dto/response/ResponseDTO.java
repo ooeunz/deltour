@@ -1,4 +1,4 @@
-package com.chatbot.deltour.dto;
+package com.chatbot.deltour.dto.response;
 
 import com.chatbot.deltour.model.detectIntent.Parameter;
 import lombok.Builder;

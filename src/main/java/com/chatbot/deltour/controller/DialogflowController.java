@@ -1,6 +1,6 @@
 package com.chatbot.deltour.controller;
 
-import com.chatbot.deltour.dto.ResponseDTO;
+import com.chatbot.deltour.dto.response.ResponseDTO;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.sevice.Impl.DialogflowServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
