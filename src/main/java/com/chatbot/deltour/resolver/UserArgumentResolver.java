@@ -25,6 +25,7 @@ import java.util.Map;
 
 import static com.chatbot.deltour.model.User.SocialType.*;
 
+
 @Component
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
@@ -34,33 +35,30 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         this.userRepository = userRepository;
     }
 
+    @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(SocialUser.class) != null &&
-                parameter.getParameterType().equals(User.class);
+        return parameter.getParameterAnnotation(SocialUser.class) != null && parameter.getParameterType().equals(User.class);
     }
 
-    public Object resolveArgument(MethodParameter parameter,
-                                  ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
-        WebDataBinderFactory binderFactory) throws Exception {
+    @Override
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
         User user = (User) session.getAttribute("user");
-        return getUser(user,session);
+        return getUser(user, session);
     }
 
     private User getUser(User user, HttpSession session) {
-        if (user == null) {
+        if(user == null) {
             try {
                 OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
                 Map<String, Object> map = authentication.getPrincipal().getAttributes();
                 User convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
 
                 user = userRepository.findByEmail(convertUser.getEmail());
-                if (user == null) {
-                    user = userRepository.save(convertUser);
+                if (user == null) { user = userRepository.save(convertUser); }
 
-                    setRoleIfNotSame(user, authentication, map);
-                    session.setAttribute("user", user);
-                }
+                setRoleIfNotSame(user, authentication, map);
+                session.setAttribute("user", user);
             } catch (ClassCastException e) {
                 return user;
             }
@@ -69,9 +67,9 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private User convertUser(String authority, Map<String, Object> map) {
-        if (FACEBOOK.getValue().equals(authority)) return getModernUser(FACEBOOK, map);
-        else if (GOOGLE.getValue().equals(authority)) return getModernUser(GOOGLE, map);
-        else if (KAKAO.getValue().equals(authority)) return getModernUser(KAKAO, map);
+        if(FACEBOOK.isEquals(authority)) return getModernUser(FACEBOOK, map);
+        else if(GOOGLE.isEquals(authority)) return getModernUser(GOOGLE, map);
+        else if(KAKAO.isEquals(authority)) return getKaKaoUser(map);
         return null;
     }
 
@@ -86,21 +84,19 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private User getKaKaoUser(Map<String, Object> map) {
-        HashMap<String, String> propertyMap = (HashMap<String, String>) map.get("properties");
+        Map<String, String> propertyMap = (HashMap<String, String>) map.get("properties");
         return User.builder()
                 .name(propertyMap.get("nickname"))
-                .email(String.valueOf(map.get("id")))
+                .email(String.valueOf(map.get("kaccount_email")))
                 .principal(String.valueOf(map.get("id")))
                 .socialType(KAKAO)
                 .createdDate(LocalDateTime.now())
                 .build();
     }
 
-    private void setRoleIfNotSame(User user, OAuth2AuthenticationToken auth2Authentication, Map<String, Object> map) {
-        if(!auth2Authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
-            SecurityContextHolder.getContext().setAuthentication(new
-                    UsernamePasswordAuthenticationToken(map, "N/A",
-                    AuthorityUtils.createAuthorityList(user.getSocialType().getRoleType())));
+    private void setRoleIfNotSame(User user, OAuth2AuthenticationToken authentication, Map<String, Object> map) {
+        if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(map, "N/A", AuthorityUtils.createAuthorityList(user.getSocialType().getRoleType())));
         }
     }
 }

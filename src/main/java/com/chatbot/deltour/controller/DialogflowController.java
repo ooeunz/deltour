@@ -27,25 +27,5 @@ public class DialogflowController {
         return dialogflowServiceImpl.detectIntentTexts(queryTxt, sessionId);
     }
 
-    // save
-//    @PostMapping("/save")
-//    public  update(@RequestBody Intent intent){
-//        this.intentRepository.save(intent);
-//        System.out.println("sucess?");
-//        return intent;Intent
-//    }
-
-//    @GetMapping("/findAll")
-//    public List<ResponseDTO> findAll() {
-//        List<ResponseDTO> intents = this.intentRepository.findAll();
-//        return intents;
-//    }
-
-//    @GetMapping("/find/{intent}")
-//    public List<ResponseDTO> find(@PathVariable("intent") String intent) {
-//        return this.intentRepository.findByIntent(intent);
-//    }
-
-
 
 }

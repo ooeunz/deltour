@@ -36,9 +36,9 @@ dependencies {
     compile('com.google.cloud:google-cloud-dialogflow:0.93.0-alpha')
 
     // security
-    compile('org.springframework.security:spring-security-oauth2-client')
-    compile('org.springframework.security:spring-security-oauth2-jose')
-    compile('org.springframework.boot:spring-boot-starter-security')
+//    compile('org.springframework.security:spring-security-oauth2-client')
+//    compile('org.springframework.security:spring-security-oauth2-jose')
+//    compile('org.springframework.boot:spring-boot-starter-security')
 
     // nosql
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -47,7 +47,19 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 
-    compile("mysql:mysql-connector-java")
+    repositories {
+        mavenCentral()
+        //If you are using a SNAPSHOT version
+        maven { url 'https://repo.spring.io/snapshot' }
+        //If you are using a milestone or release candidate version
+        //현재는 SNAPSHOT 버전이기 때문에 필요 없습니다.
+        //maven { url 'https://repo.spring.io/milestone' }
+    }
+
+    dependencies {
+        compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.BUILD-SNAPSHOT'
+    }
+
 }
 
 test {

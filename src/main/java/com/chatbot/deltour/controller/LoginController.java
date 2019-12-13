@@ -18,4 +18,9 @@ public class LoginController {
         return "redirect:/chat";
     }
 
+    @GetMapping("/loginFail")
+    public String loginFail(@SocialUser User user) {
+        return "fail";
+    }
+
 }

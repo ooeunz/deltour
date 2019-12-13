@@ -9,13 +9,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootApplication
-public class DeltourApplication extends WebMvcConfigurerAdapter {
+public class DeltourApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(DeltourApplication.class, args);
@@ -27,18 +27,6 @@ public class DeltourApplication extends WebMvcConfigurerAdapter {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(userArgumentResolver);
-    }
-
-    @Bean
-    public CommandLineRunner runner(UserRepository userRepository) throws Exception {
-        return (args -> {
-            User user = userRepository.save(User.builder()
-                .name("ooeunz")
-                .password("test")
-                .email("yuns994@gmail.com")
-                .createdDate(LocalDateTime.now())
-                .build());
-        });
     }
 
 }
