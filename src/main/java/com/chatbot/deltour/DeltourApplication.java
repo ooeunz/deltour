@@ -16,12 +16,4 @@ public class DeltourApplication implements WebMvcConfigurer {
         SpringApplication.run(DeltourApplication.class, args);
     }
 
-//    @Autowired
-//    private UserArgumentResolver userArgumentResolver;
-
-//    @Override
-//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-//        argumentResolvers.add(userArgumentResolver);
-//    }
-
 }
