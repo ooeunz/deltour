@@ -1,6 +1,6 @@
 package com.chatbot.deltour.sevice.Impl;
 
-import com.chatbot.deltour.dto.response.ResponseDTO;
+import com.chatbot.deltour.dto.response.ResponseContentDTO;
 import com.chatbot.deltour.model.detectIntent.Intent;
 import com.chatbot.deltour.model.detectIntent.Response;
 import com.chatbot.deltour.repository.IntentRepository;
@@ -25,8 +25,8 @@ public class DialogflowServiceImpl implements DialogflowService {
         this.intentRepository = intentRepository;
     }
 
-    public ResponseDTO convertResponseDTO(Response response) {
-        return ResponseDTO.builder()
+    public ResponseContentDTO convertResponseDTO(Response response) {
+        return ResponseContentDTO.builder()
                 .parameter(response.getParameter())
                 .fulfillmentText(response.getFulfillmentText())
                 .img(response.getImg())
@@ -34,7 +34,7 @@ public class DialogflowServiceImpl implements DialogflowService {
     }
 
     @Override
-    public ResponseDTO detectIntentTexts(String queryTxt, String sessionId) throws Exception {
+    public ResponseContentDTO detectIntentTexts(String queryTxt, String sessionId) throws Exception {
 
         // Instantiates a client
         try (SessionsClient sessionsClient = SessionsClient.create()) {

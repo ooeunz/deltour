@@ -8,8 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class ResponseDTO {
+public class ResponseContentDTO {
     private Parameter parameter;
     private String fulfillmentText;
     private String img;
+    private String subFullfillmentText;
 }

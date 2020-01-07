@@ -1,6 +1,6 @@
 package com.chatbot.deltour.controller;
 
-import com.chatbot.deltour.dto.response.ResponseDTO;
+import com.chatbot.deltour.dto.response.ResponseContentDTO;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.sevice.Impl.DialogflowServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class DialogflowController {
     }
 
     @PostMapping("/detectintent")
-    public ResponseDTO DetectIntent(@RequestBody String queryTxt) throws Exception {
+    public ResponseContentDTO DetectIntent(@RequestBody String queryTxt) throws Exception {
 
         String sessionId = "abcdefg";
         return dialogflowServiceImpl.detectIntentTexts(queryTxt, sessionId);
