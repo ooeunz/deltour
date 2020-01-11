@@ -10,6 +10,5 @@ import java.util.List;
 @Repository
 public interface IntentRepository extends MongoRepository<Intent, String> {
 
-//    Intent findByIntent(@Param("intent") String intent);
     Intent findByIntent(String intent);
 }
