@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Document(collection="intent")
+@Document(collection="Intent")
 public class Intent {
 
     @Id

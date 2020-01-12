@@ -6,6 +6,8 @@ import com.chatbot.deltour.model.detectIntent.Response;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.sevice.DialogflowService;
 import com.google.cloud.dialogflow.v2.*;
+import com.google.protobuf.util.JsonFormat;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class DialogflowServiceImpl implements DialogflowService {
     @Override
     public ResponseContentDTO detectIntentTexts(String queryTxt, String sessionId) throws Exception {
 
+        ObjectMapper mapper = new ObjectMapper();
         ResponseContentDTO responseContentDTO = new ResponseContentDTO();
 
         // Instantiates a client
@@ -37,16 +40,21 @@ public class DialogflowServiceImpl implements DialogflowService {
             QueryInput queryInput = QueryInput.newBuilder().setText(textInput).build();
 
             DetectIntentResponse response = sessionsClient.detectIntent(session, queryInput);
+//            QueryResult queryResult = response.getQueryResult();
+
             QueryResult queryResult = response.getQueryResult();
 
+            // cashing
             String queryText = queryResult.getQueryText();
             String fulfillmentText = queryResult.getFulfillmentText();
+            String detectIntent = queryResult.getIntent().getDisplayName();
 
             if (queryResult.getAllRequiredParamsPresent()) {
 
                 // response output
-                String detectIntent = queryResult.getIntent().getDisplayName();
                 Intent intent = this.intentRepository.findByIntent(detectIntent);
+
+
 
                 // debug
                 System.out.println("Intent List: " + intent);
@@ -61,7 +69,21 @@ public class DialogflowServiceImpl implements DialogflowService {
 
                 // find equal parameter
                 if (queryResult.getParameters() != null) {
+
+                    int count = 1;
+//                    String queryParameter = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(queryResult.getParameters());
+//                    System.out.println("getParameters: " + queryParameter);
+
+                    System.out.println("queryParameter: " + queryResult.getParameters());
+                    String parameter = JsonFormat.parser().merge(queryResult.getParameters());
+                    System.out.println("queryParameter Type of: " + queryResult.getParameters().getClass().getName());
+
                     for (Response res : responseList) {
+                        String resParameter = mapper.writeValueAsString(res.getParameter());
+
+                        System.out.println("=============" + count++);
+                        System.out.println("res: " + resParameter);
+
                         if (queryResult.getParameters().equals(res.getParameter())) {
                             return responseContentDTO.convertResponseDTO(res);
                         }
@@ -71,8 +93,6 @@ public class DialogflowServiceImpl implements DialogflowService {
 
             // debug
             System.out.println("Multi-Turn Text: " + fulfillmentText);
-
-            // Not null exception Error 발생!!!
             return responseContentDTO.multiTurn(fulfillmentText);
         }
     }
