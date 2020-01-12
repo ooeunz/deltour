@@ -32,6 +32,11 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
+    // websocket
+    compile("org.springframework.boot:spring-boot-starter-websocket")
+    compile("org.webjars:stomp-websocket:2.3.3")
+
     // dialogflow
     compile('com.google.cloud:google-cloud-dialogflow:0.93.0-alpha')
 
@@ -46,6 +51,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     repositories {
         mavenCentral()

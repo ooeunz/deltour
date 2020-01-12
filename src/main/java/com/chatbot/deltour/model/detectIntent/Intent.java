@@ -15,7 +15,7 @@ import java.util.List;
 public class Intent {
 
     @Id
-    private String id;
+    private String _id;
 
     private String intent;
     private List<Response> response;
