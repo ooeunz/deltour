@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.protobuf.ProtobufDecoder;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.SysexMessage;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +28,39 @@ public class DialogflowServiceImpl implements DialogflowService {
 
     private String projectId = "deltour-mark-2";
     private String languageCode = "ko";
+
+    public Map<String, Object> convertGoogleParameter(Map<String, com.google.protobuf.Value> parameters) {
+        Map<String, Object> googleParameter = new HashMap<String, Object>();
+        for (String key : parameters.keySet()) {
+
+            String[] string_value = parameters.get(key).toString().split(" ");
+            String str = string_value[string_value.length-1].replaceAll("\"", "");
+            googleParameter.put(key, str);
+        }
+        return googleParameter;
+    }
+
+    public Map<String, Object> findEqualParameter(Map<String, Object> googleParameter, List<Map<String, Object>> responseList) {
+
+
+        for (Map<String, Object> exResponse : responseList) {
+
+
+
+            System.out.println("<Type>" + googleParameter.getClass().getName());
+            System.out.println("googleParameter: " + googleParameter.getClass().getName());
+            System.out.println("exResponse: " + exResponse.get("parameter").getClass().getName() + "\n\n");
+
+            System.out.println("<Value>");
+            System.out.println("googleParameter: " + googleParameter);
+            System.out.println("res: " + exResponse);
+
+            if (googleParameter.equals(exResponse)) {
+                return exResponse;
+            }
+        }
+        return null;
+    }
 
     @Override
     public ResponseContentDTO detectIntentTexts(String queryTxt, String sessionId) throws Exception {
@@ -62,9 +98,8 @@ public class DialogflowServiceImpl implements DialogflowService {
                 // response output
                 Intent intent = this.intentRepository.findByIntent(detectIntent);
 
-                // debug
-                System.out.println("Intent List: " + intent);
-                List<Response> responseList = intent.getResponse();
+//                List<Response> responseList = intent.getResponse();
+                List<Map<String, Object>> responseList = intent.getResponse();
 
                 // console output
                 System.out.println("====================");
@@ -73,24 +108,14 @@ public class DialogflowServiceImpl implements DialogflowService {
                         queryResult.getIntent().getDisplayName(), queryResult.getIntentDetectionConfidence());
                 System.out.format("Fulfillment Text: '%s'\n", fulfillmentText);
 
+
+                Map<String, Object> googleParameter = convertGoogleParameter(queryResult.getParameters().getFieldsMap());
+                System.out.println("googleParameter: " + googleParameter);
+
                 // find equal parameter
                 if (queryResult.getParameters() != null) {
-
-                    int count = 1;
-                    Map<String, com.google.protobuf.Value> parameters = queryResult.getParameters().getFieldsMap();
-
-                    System.out.println("queryParameter: " + parameters);
-
-                    for (Response res : responseList) {
-                        String resParameter = mapper.writeValueAsString(res.getParameter());
-
-                        System.out.println("=============" + count++);
-                        System.out.println("res: " + resParameter);
-
-                        if (queryResult.getParameters().equals(res.getParameter())) {
-                            return responseContentDTO.convertResponseDTO(res);
-                        }
-                    }
+                    Map<String, Object> result = findEqualParameter(googleParameter, responseList);
+                    System.out.println("result: " + result);
                 }
             }
 

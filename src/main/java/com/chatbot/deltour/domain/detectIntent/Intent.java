@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Getter
@@ -17,7 +18,8 @@ public class Intent {
     private String _id;
 
     private String intent;
-    private List<Response> response;
+//    private List<Response> response;
+    private List<Map<String, Object>> response;
 
     @Override
     public String toString() {
