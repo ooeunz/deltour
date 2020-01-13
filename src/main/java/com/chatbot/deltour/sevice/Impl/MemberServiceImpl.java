@@ -1,6 +1,6 @@
 package com.chatbot.deltour.sevice.Impl;
 
-import com.chatbot.deltour.model.member.Member;
+import com.chatbot.deltour.domain.member.Member;
 import com.chatbot.deltour.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service

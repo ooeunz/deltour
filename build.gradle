@@ -33,6 +33,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
+    // protobuf
+    compile 'com.google.protobuf:protobuf-java:3.11.0'
+
     // websocket
     compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("org.webjars:stomp-websocket:2.3.3")

@@ -1,16 +1,11 @@
 package com.chatbot.deltour.dto.response;
 
-import com.chatbot.deltour.model.detectIntent.Response;
+import com.chatbot.deltour.domain.detectIntent.Response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 @Getter

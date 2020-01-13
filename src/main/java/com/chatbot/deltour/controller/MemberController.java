@@ -1,6 +1,6 @@
 package com.chatbot.deltour.controller;
 
-import com.chatbot.deltour.model.member.Member;
+import com.chatbot.deltour.domain.member.Member;
 import com.chatbot.deltour.sevice.Impl.MemberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

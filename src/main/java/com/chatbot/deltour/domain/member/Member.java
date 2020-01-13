@@ -1,4 +1,4 @@
-package com.chatbot.deltour.model.member;
+package com.chatbot.deltour.domain.member;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

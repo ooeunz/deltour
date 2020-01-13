@@ -1,17 +1,20 @@
 package com.chatbot.deltour.sevice.Impl;
 
 import com.chatbot.deltour.dto.response.ResponseContentDTO;
-import com.chatbot.deltour.model.detectIntent.Intent;
-import com.chatbot.deltour.model.detectIntent.Response;
+import com.chatbot.deltour.domain.detectIntent.Intent;
+import com.chatbot.deltour.domain.detectIntent.Response;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.sevice.DialogflowService;
+import com.google.api.SystemParameterProto;
 import com.google.cloud.dialogflow.v2.*;
-import com.google.protobuf.util.JsonFormat;
+import com.google.protobuf.Value;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.protobuf.ProtobufDecoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -49,12 +52,15 @@ public class DialogflowServiceImpl implements DialogflowService {
             String fulfillmentText = queryResult.getFulfillmentText();
             String detectIntent = queryResult.getIntent().getDisplayName();
 
+            System.out.println("Detect Intent: " + detectIntent);
+
             if (queryResult.getAllRequiredParamsPresent()) {
+
+                // debug
+                System.out.println(("AllRequiredParamsPresent: " + queryResult.getAllRequiredParamsPresent()));
 
                 // response output
                 Intent intent = this.intentRepository.findByIntent(detectIntent);
-
-
 
                 // debug
                 System.out.println("Intent List: " + intent);
@@ -71,12 +77,9 @@ public class DialogflowServiceImpl implements DialogflowService {
                 if (queryResult.getParameters() != null) {
 
                     int count = 1;
-//                    String queryParameter = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(queryResult.getParameters());
-//                    System.out.println("getParameters: " + queryParameter);
+                    Map<String, com.google.protobuf.Value> parameters = queryResult.getParameters().getFieldsMap();
 
-                    System.out.println("queryParameter: " + queryResult.getParameters());
-                    String parameter = JsonFormat.parser().merge(queryResult.getParameters());
-                    System.out.println("queryParameter Type of: " + queryResult.getParameters().getClass().getName());
+                    System.out.println("queryParameter: " + parameters);
 
                     for (Response res : responseList) {
                         String resParameter = mapper.writeValueAsString(res.getParameter());

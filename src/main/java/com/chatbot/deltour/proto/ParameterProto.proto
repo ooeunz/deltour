@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package tutorial;
+
+option java_package = "com.chatbot.deltour.proto";
+
+message field {
+  required string key = 1;
+
+  required message value {
+    required String string_value = 1;
+  }
+}
