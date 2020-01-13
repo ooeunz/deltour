@@ -2,20 +2,14 @@ package com.chatbot.deltour.sevice.Impl;
 
 import com.chatbot.deltour.dto.response.ResponseContentDTO;
 import com.chatbot.deltour.domain.detectIntent.Intent;
-import com.chatbot.deltour.domain.detectIntent.Response;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.sevice.DialogflowService;
-import com.google.api.SystemParameterProto;
 import com.google.cloud.dialogflow.v2.*;
-import com.google.protobuf.Value;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.codec.protobuf.ProtobufDecoder;
 import org.springframework.stereotype.Service;
 
-import javax.sound.midi.SysexMessage;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +28,7 @@ public class DialogflowServiceImpl implements DialogflowService {
         for (String key : parameters.keySet()) {
 
             String[] string_value = parameters.get(key).toString().split(" ");
-            String str = string_value[string_value.length-1].replaceAll("\"", "");
+            String str = string_value[string_value.length-1].replaceAll("\"", "").replaceAll("\n", "");
             googleParameter.put(key, str);
         }
         return googleParameter;
@@ -42,20 +36,8 @@ public class DialogflowServiceImpl implements DialogflowService {
 
     public Map<String, Object> findEqualParameter(Map<String, Object> googleParameter, List<Map<String, Object>> responseList) {
 
-
         for (Map<String, Object> exResponse : responseList) {
-
-
-
-            System.out.println("<Type>" + googleParameter.getClass().getName());
-            System.out.println("googleParameter: " + googleParameter.getClass().getName());
-            System.out.println("exResponse: " + exResponse.get("parameter").getClass().getName() + "\n\n");
-
-            System.out.println("<Value>");
-            System.out.println("googleParameter: " + googleParameter);
-            System.out.println("res: " + exResponse);
-
-            if (googleParameter.equals(exResponse)) {
+            if (googleParameter.equals(exResponse.get("parameter"))) {
                 return exResponse;
             }
         }
@@ -79,7 +61,6 @@ public class DialogflowServiceImpl implements DialogflowService {
             QueryInput queryInput = QueryInput.newBuilder().setText(textInput).build();
 
             DetectIntentResponse response = sessionsClient.detectIntent(session, queryInput);
-//            QueryResult queryResult = response.getQueryResult();
 
             QueryResult queryResult = response.getQueryResult();
 
@@ -97,30 +78,23 @@ public class DialogflowServiceImpl implements DialogflowService {
 
                 // response output
                 Intent intent = this.intentRepository.findByIntent(detectIntent);
-
-//                List<Response> responseList = intent.getResponse();
                 List<Map<String, Object>> responseList = intent.getResponse();
 
+                Map<String, Object> googleParameter = convertGoogleParameter(queryResult.getParameters().getFieldsMap());
                 // console output
                 System.out.println("====================");
                 System.out.format("Query Text: '%s'\n", queryText);
                 System.out.format("Detected Intent: %s (confidence: %f)\n",
                         queryResult.getIntent().getDisplayName(), queryResult.getIntentDetectionConfidence());
-                System.out.format("Fulfillment Text: '%s'\n", fulfillmentText);
-
-
-                Map<String, Object> googleParameter = convertGoogleParameter(queryResult.getParameters().getFieldsMap());
                 System.out.println("googleParameter: " + googleParameter);
 
                 // find equal parameter
                 if (queryResult.getParameters() != null) {
                     Map<String, Object> result = findEqualParameter(googleParameter, responseList);
-                    System.out.println("result: " + result);
+                    return responseContentDTO.convertResponseDTO(result);
                 }
             }
-
-            // debug
-            System.out.println("Multi-Turn Text: " + fulfillmentText);
+            // Multi turn
             return responseContentDTO.multiTurn(fulfillmentText);
         }
     }
