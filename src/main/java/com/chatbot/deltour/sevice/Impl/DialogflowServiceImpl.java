@@ -4,8 +4,8 @@ import com.chatbot.deltour.dto.response.ResponseContentDTO;
 import com.chatbot.deltour.domain.detectIntent.Intent;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.sevice.DialogflowService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.dialogflow.v2.*;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/dialogflow")
+@CrossOrigin("*")
 public class DialogflowController {
 
     DialogflowService dialogflowService;
@@ -26,5 +27,11 @@ public class DialogflowController {
 
         String sessionId = "abcdefg";
         return dialogflowService.detectIntentTexts(queryTxt, sessionId);
+    }
+
+    @GetMapping("test")
+    public String test() {
+        String result = "success";
+        return result;
     }
 }

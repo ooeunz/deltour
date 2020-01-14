@@ -16,10 +16,13 @@ import java.util.Random;
 @Builder
 @AllArgsConstructor
 public class ResponseContentDTO {
+    // message shape
     private String fulfillmentText;
     private String img;
     private String subFulfillmentText;
 
+    // To check isSentByCurrentUser in ReactJs
+    private String author;
     public ResponseContentDTO() {
 
     }
@@ -31,6 +34,7 @@ public class ResponseContentDTO {
                 .fulfillmentText(fulfillmentText)
                 .img("")
                 .subFulfillmentText("")
+                .author("chatbot")
                 .build();
     }
 
@@ -44,10 +48,10 @@ public class ResponseContentDTO {
         int subFulfillmentTextIndex = new Random().nextInt(subFulfillmentText.size());
 
         return ResponseContentDTO.builder()
-//                .parameter(response.getParameter())
                 .fulfillmentText(fulfillmentText.get(fulfillmentTextIndex))
                 .img((String) response.get("img"))
                 .subFulfillmentText(subFulfillmentText.get(subFulfillmentTextIndex))
+                .author("chatbot")
                 .build();
     }
 }
