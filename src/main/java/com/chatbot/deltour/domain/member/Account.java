@@ -25,7 +25,7 @@ public class Account {
 
     @Column
     @Enumerated(value = EnumType.STRING)
-    private UserRole role;
+    private UserRole userRole;
 
     @Column
     private String socialId;
@@ -34,4 +34,3 @@ public class Account {
     @Enumerated(value = EnumType.STRING)
     private SocialType socialType;
 }
-security
