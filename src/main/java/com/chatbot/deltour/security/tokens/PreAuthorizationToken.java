@@ -2,9 +2,9 @@ package com.chatbot.deltour.security.tokens;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-public class PreAuthorization extends UsernamePasswordAuthenticationToken {
+public class PreAuthorizationToken extends UsernamePasswordAuthenticationToken {
 
-    public PreAuthorization(String email, String password) {
+    public PreAuthorizationToken(String email, String password) {
         super(email, password);
     }
 
