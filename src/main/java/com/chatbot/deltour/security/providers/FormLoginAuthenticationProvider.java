@@ -1,9 +1,8 @@
 package com.chatbot.deltour.security.providers;
 
-import com.chatbot.deltour.domain.member.Account;
+import com.chatbot.deltour.domain.Account.Account;
 import com.chatbot.deltour.repository.AccountRepository;
 import com.chatbot.deltour.security.AccountContext;
-import com.chatbot.deltour.security.AccountContextService;
 import com.chatbot.deltour.security.tokens.PostAuthorizationToken;
 import com.chatbot.deltour.security.tokens.PreAuthorizationToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +10,12 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
 
+@Component
 public class FormLoginAuthenticationProvider implements AuthenticationProvider {
-
-    @Autowired
-    private AccountContextService accountContextService;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -47,6 +45,6 @@ public class FormLoginAuthenticationProvider implements AuthenticationProvider {
     }
 
     private boolean isCorrectPassword(String password, Account account) {
-        return passwordEncoder.matches(account.getPassword(), password);
+        return passwordEncoder.matches(password, account.getPassword());
     }
 }

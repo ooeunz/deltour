@@ -1,6 +1,6 @@
 package com.chatbot.deltour.repository;
 
-import com.chatbot.deltour.domain.member.Account;
+import com.chatbot.deltour.domain.Account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

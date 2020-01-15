@@ -1,8 +1,7 @@
 package com.chatbot.deltour.security;
 
-import com.chatbot.deltour.domain.member.Account;
+import com.chatbot.deltour.domain.Account.Account;
 import com.chatbot.deltour.repository.AccountRepository;
-import com.chatbot.deltour.security.AccountContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

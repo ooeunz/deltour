@@ -1,7 +1,6 @@
-package com.chatbot.deltour.domain.member;
+package com.chatbot.deltour.domain.Account;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public enum UserRole {

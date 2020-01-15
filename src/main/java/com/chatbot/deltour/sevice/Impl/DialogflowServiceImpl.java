@@ -1,6 +1,6 @@
 package com.chatbot.deltour.sevice.Impl;
 
-import com.chatbot.deltour.dto.response.ResponseContentDTO;
+import com.chatbot.deltour.dto.ResponseContentDto;
 import com.chatbot.deltour.domain.detectIntent.Intent;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.sevice.DialogflowService;
@@ -45,10 +45,10 @@ public class DialogflowServiceImpl implements DialogflowService {
     }
 
     @Override
-    public ResponseContentDTO detectIntentTexts(String queryTxt, String sessionId) throws Exception {
+    public ResponseContentDto detectIntentTexts(String queryTxt, String sessionId) throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
-        ResponseContentDTO responseContentDTO = new ResponseContentDTO();
+        ResponseContentDto responseContentDTO = new ResponseContentDto();
 
         // Instantiates a client
         try (SessionsClient sessionsClient = SessionsClient.create()) {
