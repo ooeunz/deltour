@@ -56,6 +56,10 @@ dependencies {
     compile("mysql:mysql-connector-java")
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.10.Final'
 
+    // AOP
+    compile group: 'cglib', name: 'cglib', version: '2.2.2'
+
+
 
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 

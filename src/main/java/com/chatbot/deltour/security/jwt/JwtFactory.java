@@ -1,14 +1,13 @@
-package com.chatbot.deltour.security;
+package com.chatbot.deltour.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.chatbot.deltour.security.AccountContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 @Component
 public class JwtFactory {
@@ -25,6 +24,7 @@ public class JwtFactory {
             token = JWT.create()
                     .withIssuer("ooeunz")
                     .withClaim("EMAIL", context.getAccount().getEmail())
+                    .withClaim("USERNAME", context.getAccount().getUsername())
                     .withClaim("USER_ROLE", context.getAccount().getUserRole().getRoleName())
                     .sign(generateAlgorithm());
 

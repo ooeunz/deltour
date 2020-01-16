@@ -1,0 +1,6 @@
+POST http://localhost:8080/api/detectIntent
+Content-Type: application/json
+
+{"queryTxt" : "신혼 여행지 추천해줘"}
+
+###

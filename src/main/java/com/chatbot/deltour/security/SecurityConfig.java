@@ -1,8 +1,13 @@
 package com.chatbot.deltour.security;
 
+import com.chatbot.deltour.security.filter.FilterSkipMatcher;
 import com.chatbot.deltour.security.filter.FormLoginFilter;
+import com.chatbot.deltour.security.filter.JwtAuthenticationFilter;
 import com.chatbot.deltour.security.handlers.FormLoginAuthenticationSuccessHandler;
+import com.chatbot.deltour.security.handlers.JwtAuthenticationFailureHandler;
+import com.chatbot.deltour.security.jwt.HeaderTokenExtractor;
 import com.chatbot.deltour.security.providers.FormLoginAuthenticationProvider;
+import com.chatbot.deltour.security.providers.JwtAuthenticationProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 
+import java.util.Arrays;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -28,6 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private FormLoginAuthenticationProvider provider;
+
+    @Autowired
+    private JwtAuthenticationProvider jwtProvider;
+
+    @Autowired
+    private JwtAuthenticationFailureHandler jwtFailureHandler;
+
+    @Autowired
+    private HeaderTokenExtractor headerTokenExtractor;
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
@@ -51,10 +67,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
+    protected JwtAuthenticationFilter jwtFilter() throws Exception {
+        FilterSkipMatcher matcher = new FilterSkipMatcher(Arrays.asList("/formLogin"), "/api/**");
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(matcher, jwtFailureHandler, headerTokenExtractor);
+        filter.setAuthenticationManager(super.authenticationManagerBean());
+
+        return filter;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .authenticationProvider(this.provider);
+                .authenticationProvider(this.provider)
+                .authenticationProvider(this.jwtProvider);
     }
 
     @Override
@@ -70,6 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .headers().frameOptions().disable()
             .and()
-                .addFilterBefore(formLoginFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(formLoginFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

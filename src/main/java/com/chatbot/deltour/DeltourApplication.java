@@ -20,7 +20,7 @@ public class DeltourApplication implements WebMvcConfigurer {
 //    CommandLineRunner bootstrapeTestAccount(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
 //        return args -> {
 //            Account account = new Account();
-//            accountRepository.save(account.testBuilder("yuns994@gmail.com", "ooeunz", passwordEncoder.encode("123123")));
+//            accountRepository.save(account("yuns994@gmail.com", "ooeunz", passwordEncoder.encode("123123")));
 //        };
 //    }
 }

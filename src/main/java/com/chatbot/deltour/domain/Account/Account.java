@@ -5,11 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Account {
 
     @Id
@@ -36,12 +31,41 @@ public class Account {
     @Enumerated(value = EnumType.STRING)
     private SocialType socialType;
 
-    public Account testBuilder(String email, String username, String password) {
-        return Account.builder()
-                .email(email)
-                .username(username)
-                .password(password)
-                .userRole((UserRole.USER))
-                .build();
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public String getSocialId() {
+        return socialId;
+    }
+
+    public SocialType getSocialType() {
+        return socialType;
+    }
+
+    public Account() {
+
+    }
+
+    public Account(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
     }
 }

@@ -2,7 +2,7 @@ package com.chatbot.deltour.security.handlers;
 
 import com.chatbot.deltour.dto.TokenDto;
 import com.chatbot.deltour.security.AccountContext;
-import com.chatbot.deltour.security.JwtFactory;
+import com.chatbot.deltour.security.jwt.JwtFactory;
 import com.chatbot.deltour.security.tokens.PostAuthorizationToken;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
