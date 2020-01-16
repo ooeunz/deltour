@@ -1,4 +1,4 @@
-package com.chatbot.deltour.domain.member;
+package com.chatbot.deltour.domain.Account;
 
 public enum SocialType {
     FACEBOOK("facebook"),

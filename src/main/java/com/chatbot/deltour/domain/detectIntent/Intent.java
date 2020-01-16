@@ -18,7 +18,6 @@ public class Intent {
     private String _id;
 
     private String intent;
-//    private List<Response> response;
     private List<Map<String, Object>> response;
 
     @Override
