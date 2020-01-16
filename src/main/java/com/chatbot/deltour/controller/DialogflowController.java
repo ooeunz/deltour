@@ -4,6 +4,7 @@ import com.chatbot.deltour.dto.ResponseContentDto;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.security.tokens.PostAuthorizationToken;
 import com.chatbot.deltour.sevice.DialogflowService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -14,17 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class DialogflowController {
 
-    DialogflowService dialogflowService;
-    IntentRepository intentRepository;
-
-    public DialogflowController() {
-
-    }
-
-    private DialogflowController(DialogflowService dialogflowService, IntentRepository intentRepository) {
-        this.dialogflowService = dialogflowService;
-        this.intentRepository = intentRepository;
-    }
+    @Autowired
+    private DialogflowService dialogflowService;
 
     @PostMapping("/detectintent")
     @PostAuthorize("hasRole('ROLE_USER')")

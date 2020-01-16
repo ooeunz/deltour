@@ -7,6 +7,7 @@ import com.chatbot.deltour.sevice.DialogflowService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.dialogflow.v2.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
