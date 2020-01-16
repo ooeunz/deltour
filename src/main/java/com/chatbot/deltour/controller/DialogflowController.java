@@ -4,6 +4,7 @@ import com.chatbot.deltour.dto.ResponseContentDto;
 import com.chatbot.deltour.repository.IntentRepository;
 import com.chatbot.deltour.security.tokens.PostAuthorizationToken;
 import com.chatbot.deltour.sevice.DialogflowService;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class DialogflowController {
     }
 
     @PostMapping("/detectintent")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostAuthorize("hasRole('ROLE_USER')")
     public ResponseContentDto DetectIntent(@RequestBody String queryTxt) throws Exception {
 
         String sessionId = "abcdefg";
