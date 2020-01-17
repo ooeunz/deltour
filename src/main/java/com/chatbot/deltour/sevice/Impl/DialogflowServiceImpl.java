@@ -91,6 +91,10 @@ public class DialogflowServiceImpl implements DialogflowService {
 
                 // response output
                 Intent intent = this.intentRepository.findByIntent(detectIntent);
+                if (intent == null) {
+                    responseMessage.add("msg", fulfillmentTextDTO.multiTurn("무슨 말인지 모르겠어ㅜㅜ"));
+                    return responseMessage;
+                }
 
                 List<Map<String, Object>> responseList = intent.getResponse();
 

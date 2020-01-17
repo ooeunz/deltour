@@ -48,12 +48,18 @@ public class FulfillmentTextDto {
 
         // random index
         int fulfillmentTextIndex = new Random().nextInt(fulfillmentText.size());
-        int subFulfillmentTextIndex = new Random().nextInt(subFulfillmentText.size());
-
+        if (subFulfillmentText != null) {
+            int subFulfillmentTextIndex = new Random().nextInt(subFulfillmentText.size());
+            return FulfillmentTextDto.builder()
+                    .fulfillmentText(fulfillmentText.get(fulfillmentTextIndex))
+                    .img((String) response.get("img"))
+                    .subFulfillmentText(subFulfillmentText.get(subFulfillmentTextIndex))
+                    .author("chatbot")
+                    .build();
+        }
         return FulfillmentTextDto.builder()
                 .fulfillmentText(fulfillmentText.get(fulfillmentTextIndex))
                 .img((String) response.get("img"))
-                .subFulfillmentText(subFulfillmentText.get(subFulfillmentTextIndex))
                 .author("chatbot")
                 .build();
     }
