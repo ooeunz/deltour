@@ -5,9 +5,7 @@ import com.chatbot.deltour.dto.SignUpDto;
 import com.chatbot.deltour.repository.AccountRepository;
 import com.chatbot.deltour.sevice.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +32,10 @@ public class SignUpServiceImpl implements SignUpService {
 
         SignUpDto signUpDto = new SignUpDto(json);
 
-        System.out.println(passwordEncoder.getClass().getName());
-
         try {
+
+            System.out.println(json);
+
             if ((signUpDto.getEmail() == null && signUpDto.getEmail().length() == 0)
                     | (signUpDto.getEmail() == null && signUpDto.getUsername().length() == 0)
                     | (signUpDto.getPassword() == null && signUpDto.getPassword().length() == 0)) {
@@ -54,7 +53,7 @@ public class SignUpServiceImpl implements SignUpService {
             return account.getEmail();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("ErrorCode: " + e.getMessage());
             return e.getMessage();
         }
     }

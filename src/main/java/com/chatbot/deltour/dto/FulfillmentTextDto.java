@@ -13,7 +13,7 @@ import java.util.Random;
 @Setter
 @Builder
 @AllArgsConstructor
-public class ResponseContentDto {
+public class FulfillmentTextDto {
     // message shape
     private String fulfillmentText;
     private String img;
@@ -21,14 +21,19 @@ public class ResponseContentDto {
 
     // To check isSentByCurrentUser in ReactJs
     private String author;
-    public ResponseContentDto() {
+    public FulfillmentTextDto() {
 
     }
 
+    public FulfillmentTextDto(String queryTxt, String author) {
+        this.fulfillmentText = queryTxt;
+        this.author = author;
+    }
+
     // it doesn't have all requirement parameter. so, it just send only fulfillmentText
-    public ResponseContentDto multiTurn(String fulfillmentText) {
+    public FulfillmentTextDto multiTurn(String fulfillmentText) {
         System.out.println("ResponseContentDTO fulfillmentText: " + fulfillmentText);
-        return ResponseContentDto.builder()
+        return FulfillmentTextDto.builder()
                 .fulfillmentText(fulfillmentText)
                 .img("")
                 .subFulfillmentText("")
@@ -36,7 +41,7 @@ public class ResponseContentDto {
                 .build();
     }
 
-    public ResponseContentDto convertResponseDTO(Map<String, Object> response) {
+    public FulfillmentTextDto convertResponseDTO(Map<String, Object> response) {
 
         ArrayList<String> fulfillmentText = (ArrayList<String>) response.get("fulfillmentText");
         ArrayList<String> subFulfillmentText = (ArrayList<String>) response.get("subFulfillmentText");
@@ -45,7 +50,7 @@ public class ResponseContentDto {
         int fulfillmentTextIndex = new Random().nextInt(fulfillmentText.size());
         int subFulfillmentTextIndex = new Random().nextInt(subFulfillmentText.size());
 
-        return ResponseContentDto.builder()
+        return FulfillmentTextDto.builder()
                 .fulfillmentText(fulfillmentText.get(fulfillmentTextIndex))
                 .img((String) response.get("img"))
                 .subFulfillmentText(subFulfillmentText.get(subFulfillmentTextIndex))

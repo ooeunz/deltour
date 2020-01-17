@@ -67,5 +67,6 @@ public class Account {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.userRole = UserRole.USER;
     }
 }
