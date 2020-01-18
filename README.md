@@ -5,7 +5,7 @@
 - Mark-2 can dialog with user about travel and catch what you want travel style.
 Finally Mark-1 will reccomand you travel area.
 
-- Mark-2 is my second chatbot project. It is compare The Iron Man's second model.
+- It's my second chatbot project. It is compare The Iron Man's second model.
 
 \
 []()
@@ -51,7 +51,7 @@ If you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 \
 []()
 ## :desktop_computer: Design Pattern
-> Single Pattern
+> Singleton Pattern
 * In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one "singIe" instance. This is useful when exactly one object is needed to coordinate actions across the system. The term comes from the mathematical concept of a singleton.
 
 ![image](./readmeImg/singleton.jpg)
@@ -94,7 +94,7 @@ dependencies {
 \
 []()
 # 📚 API Docs
-## Detect Intent
+## :page_facing_up: Detect Intent
 > Context-type : application
 
 | Method |  URI  | Description |
@@ -124,7 +124,7 @@ dependencies {
 
 \
 []()
-## Redirect
+## :page_facing_up: Redirect
 > Context-type : application
 
 | Method |  URI  | Description |
@@ -157,7 +157,7 @@ dependencies {
 \
 \
 []()
-## Sign Up
+## :page_facing_up: Sign Up
 > Context-type : application
 
 | Method |  URI  | Description |
@@ -187,7 +187,7 @@ dependencies {
 
 \
 []()
-## Form Login
+## :page_facing_up: Form Login
 > Context-type : application
 
 | Method |  URI  | Description |
