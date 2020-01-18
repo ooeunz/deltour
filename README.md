@@ -7,10 +7,6 @@ Finally Mark-1 will reccomand you travel area.
 
 - It's my second chatbot project. It is compare The Iron Man's second model.
 
- | Regist | Login |
- |:---:|:---:|
- | ![image](./readmeImg/Regist.png)|![image](./readmeImg/Login.png) |
-
 \
 \
 []()
@@ -19,9 +15,9 @@ If you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 \
 []()
 
-| Chat-1 | Chat-2 |
-|:---:|:---:|
-| ![image](./readmeImg/Chat-1.png) | ![image](./readmeImg/Chat-2.png) |
+ | Regist | Login | Chat-1 | Chat-2 |
+|:---:|:---:| :---:|:---:|
+ | ![image](./readmeImg/Regist.png)|![image](./readmeImg/Login.png) | ![image](./readmeImg/chat_1.png) | ![image](./readmeImg/chat_2.png) |
 
 ---
 \
