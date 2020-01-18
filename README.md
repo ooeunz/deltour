@@ -7,6 +7,8 @@ Finally Mark-1 will reccomand you travel area.
 
 - It's my second chatbot project. It is compare The Iron Man's second model.
 
+- 📎 [[Link] Front-end: using React.js](https://github.com/ooeunz/deltour-ui)
+
 \
 \
 []()
@@ -221,13 +223,3 @@ dependencies {
     }
 }
 ```
-
-\
-[]()
-
----
-\
-\
-[]()
-## :paperclip: Link
-* [Front-end Link](https://github.com/ooeunz/deltour-ui)
