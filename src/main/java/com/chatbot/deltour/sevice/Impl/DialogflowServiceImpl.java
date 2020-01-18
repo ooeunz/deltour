@@ -85,7 +85,10 @@ public class DialogflowServiceImpl implements DialogflowService {
 
             String detectIntent = queryResult.getIntent().getDisplayName();
 
-            System.out.println("Detect Intent: " + detectIntent);
+            System.out.format("Query Text: '%s'\n", queryText);
+            System.out.format("Detected Intent: %s (confidence: %f)\n",
+                    queryResult.getIntent().getDisplayName(), queryResult.getIntentDetectionConfidence());
+            System.out.println("googleParameter: " + convertGoogleParameter(queryResult.getParameters().getFieldsMap()));
 
             if (queryResult.getAllRequiredParamsPresent()) {
 

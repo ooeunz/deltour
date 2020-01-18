@@ -1,37 +1,31 @@
 # Deltour
-Deltour is a chatbot my second(Mark-2) project.  
-Mark-2 can dialog with user about travel and catch what you want travel style.
+
+### Introduce My project
+- Deltour is a chatbot to my second(Mark-2) project.  
+- Mark-2 can dialog with user about travel and catch what you want travel style.
 Finally Mark-1 will reccomand you travel area.
+
+- Mark-2 is my second chatbot project. It is compare The Iron Man's second model.
+
 \
 []()
-## Mark-2
-Mark-2 is my second chatbot project. It is compare The Iron Man's second model.
+### Development in progress
+If you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 \
 []()
-## Development in progress
-if you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
-\
-[]()
+
 ---
 \
 \
 []()
-### Using Technology
+## Using Technology
 1. Dialogflow (Google NLP model)
-2. Spring Boot (chatbot server)
-3. MongoDB
+2. Spring Boot (chatbot server, security)
+3. MySQL(to manage member), MongoDB(to use chatbot dialog)
 4. AWS (EC2, RDS, S3)
 5. (Eureka) // if i have a chance
 6. (Elastic Search)
-\
-[]()
-## API Description
-null
-\
-[]()
-## Usage Video
-null
-\
+
 \
 []()
 
@@ -40,11 +34,15 @@ null
 \
 []()
 ## Architecture Style
-> Micro Service Architecture
-* Microservices are a software development technique—a variant of the service-oriented architecture (SOA) architectural style that structures an application as a collection of loosely coupled services. In a microservices architecture, services are fine-grained and the protocols are lightweight.
+> HA (High availability)
 
-![image](./readmeImg/microservices.png)
-\
+![image](./readmeImg/Chatbot_Architecture.png)
+* This Server have 3 container. such as Admin server, Cahtbot serer and Euraka server (Each container is running in WAS).
+
+* To start with, When you request data using API, your request vIsit Web Server and detect intent your query in Dialog Flow.
+
+* Finally, Chatbot server find suitable fulfillmentText in MongoDB. and return Json Object.
+
 \
 []()
 
@@ -54,20 +52,10 @@ null
 []()
 ## Design Pattern
 > Single Pattern
-* In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one "single" instance. This is useful when exactly one object is needed to coordinate actions across the system. The term comes from the mathematical concept of a singleton.
+* In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one "singIe" instance. This is useful when exactly one object is needed to coordinate actions across the system. The term comes from the mathematical concept of a singleton.
 
 ![image](./readmeImg/singleton.jpg)
-\
-\
-[]()
 
----
-\
-\
-[]()
-## Foldering
-null
-\
 \
 []()
 
@@ -93,9 +81,74 @@ dependencies {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    compile group: 'com.auth0', name: 'java-jwt', version: '3.3.0'
   }
 ```
-> It have login function using spring security. So permissions can be distinguished according to the user
+> It have login function using spring security. So permissions can be distinguished according to the user. When you success to this login function, I will send you JWT(Json web token).
+
+\
+\
+[]()
+---
+
+\
+[]()
+# API Description
+## Detect Intent
+> Context-type : application
+
+| Method |  URI  | Description |
+--------|--------|--------
+| POST  | /api/detectIntent | Response of chatbot|
+
+**Request**
+```json
+{
+  "queryTxt": "Your saying."
+}
+```
+**Response**
+> Success : Response success
+```json
+{
+    "code": 200,
+    "success": true,
+    "message": "Response success",
+    "data": {
+        "fulfillmentText": "Fulfillment Text",
+        "img": "Image URI",
+        "subFulfillmentText": "Sub Fulfillment Text",
+    }
+}
+```
+
+\
+[]()
+## Redirect
+> Context-type : application
+
+| Method |  URI  | Description |
+--------|--------|--------
+| POST  | /api/redirect | Redirect of your query text |
+
+**Request**
+```json
+{
+  "queryTxt": "Your saying."
+}
+```
+**Response**
+> Success : Response success
+```json
+{
+    "code": 200,
+    "success": true,
+    "message": "success redirection",
+    "data": {
+        "fulfillmentText": "Fulfillment Text",
+    }
+}
+```
 
 \
 []()
@@ -104,16 +157,59 @@ dependencies {
 \
 \
 []()
-## Core Technology
-**Dialogflow**
-> SOLscript는 챗봇 soly와의 대화를 통해 유저의 취향을 분석한 후 유저에게 맞춤형 구독 서비스를 추천해준다. 취향 분석은 Price, Category, Feel 총 3가지의 기준으로 분석하며, 유저가 정형화되지 않은 답변을 하더라도 챗봇이 해당 발화의 Entity를 추출하여 준비된 키워드에 맵핑시킨다. 또한 사용자의 구독 서비스 현황이나, 자주 사용하는 구독 서비스 현황 등에 대한 질문을 Database접근 및 내부 로직을 통해 답변할 수 있다. 
-[참고자료: Dialogflow Reference](https://cloud.google.com/dialogflow/docs/reference/rest/v2/projects.agent.sessions/detectIntent)
+## Sign Up
+> Context-type : application
+
+| Method |  URI  | Description |
+--------|--------|--------
+| POST  | /auth/signUp | Sign Up |
+
+**Request**
+```json
+{
+  "email": "yuns994@gmail.com",
+  "usernae": "ooeuz",
+  "password": "123123",
+}
+```
+**Response**
+> Success : Response success
+```json
+{
+    "code": 200,
+    "success": true,
+    "message": "Sign Up",
+    "data": {
+        "email": "yuns994@gmail.com",
+    }
+}
+```
 
 \
 []()
-**Security**
-> 신한은행 및 카드 API를 사용해서 카드를 등록해서 간편하게 구독 서비스를 관리할 수 있도록 기능을 제공하였고, 유저의 카드 사용내역을 조회 및 파싱하여 사용자의 구독 서비스 사용패턴을 분석한 후 제공하였다.
+## Form Login
+> Context-type : application
 
-\
-[]()
----
+| Method |  URI  | Description |
+--------|--------|--------
+| POST  | /auth/formLogin | Form Login function |
+
+**Request**
+```json
+{
+  "email": "yuns994@gmail.com",
+  "password": "123123",
+}
+```
+**Response**
+> Success : Response success
+```json
+{
+    "code": 200,
+    "success": true,
+    "message": "Form login success",
+    "data": {
+        "token": "JWT string",
+    }
+}
+```
