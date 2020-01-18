@@ -93,8 +93,8 @@ dependencies {
 
 \
 []()
-# 📚 API Docs
-## :page_facing_up: Detect Intent
+## 📚 API Docs
+### :page_facing_up: Detect Intent
 > Context-type : application
 
 | Method |  URI  | Description |
@@ -124,7 +124,7 @@ dependencies {
 
 \
 []()
-## :page_facing_up: Redirect
+### :page_facing_up: Redirect
 > Context-type : application
 
 | Method |  URI  | Description |
@@ -157,7 +157,7 @@ dependencies {
 \
 \
 []()
-## :page_facing_up: Sign Up
+### :page_facing_up: Sign Up
 > Context-type : application
 
 | Method |  URI  | Description |
@@ -187,7 +187,7 @@ dependencies {
 
 \
 []()
-## :page_facing_up: Form Login
+### :page_facing_up: Form Login
 > Context-type : application
 
 | Method |  URI  | Description |
