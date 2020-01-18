@@ -1,6 +1,6 @@
 # Deltour
 
-### Introduce My project
+### :pineapple: Introduce My project
 - Deltour is a chatbot to my second(Mark-2) project.  
 - Mark-2 can dialog with user about travel and catch what you want travel style.
 Finally Mark-1 will reccomand you travel area.
@@ -9,7 +9,7 @@ Finally Mark-1 will reccomand you travel area.
 
 \
 []()
-### Development in progress
+### :bust_in_silhouette: Development in progress
 If you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 \
 []()
@@ -18,7 +18,7 @@ If you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 \
 \
 []()
-## Using Technology
+## :hammer_and_wrench: Using Technology
 1. Dialogflow (Google NLP model)
 2. Spring Boot (chatbot server, security)
 3. MySQL(to manage member), MongoDB(to use chatbot dialog)
@@ -33,7 +33,7 @@ If you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 \
 \
 []()
-## Architecture Style
+## :kaaba: Architecture Style
 > HA (High availability)
 
 ![image](./readmeImg/Chatbot_Architecture.png)
@@ -50,7 +50,7 @@ If you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 \
 \
 []()
-## Design Pattern
+## :desktop_computer: Design Pattern
 > Single Pattern
 * In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one "singIe" instance. This is useful when exactly one object is needed to coordinate actions across the system. The term comes from the mathematical concept of a singleton.
 
@@ -63,7 +63,7 @@ If you have any suggestions, do not hesitate contact me. => yuns994@gmail.com
 \
 \
 []()
-## Usage Dependency
+## :bulb: Usage Dependency
 
 ```gragle
 dependencies {
@@ -93,7 +93,7 @@ dependencies {
 
 \
 []()
-# API Description
+# 📚 API Docs
 ## Detect Intent
 > Context-type : application
 
