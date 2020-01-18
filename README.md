@@ -97,10 +97,10 @@ dependencies {
 > It have login function using spring security. So permissions can be distinguished according to the user. When you success to this login function, I will send you JWT(Json web token).
 
 \
-\
 []()
----
 
+---
+\
 \
 []()
 ## 📚 API Docs
