@@ -13,7 +13,6 @@ import java.util.Map;
 
 /**
  * @author ooeunz
- *
  */
 
 @Service
@@ -26,7 +25,8 @@ public class SignUpServiceImpl implements SignUpService {
     @Lazy
     private PasswordEncoder passwordEncoder;
 
-    public SignUpServiceImpl() {}
+    public SignUpServiceImpl() {
+    }
 
     public String signUp(Map<String, Object> json) {
 

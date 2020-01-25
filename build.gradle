@@ -60,7 +60,6 @@ dependencies {
     compile group: 'cglib', name: 'cglib', version: '2.2.2'
 
 
-
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 
 //    repositories {

@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-@Document(collection="Intent")
+@Document(collection = "Intent")
 public class Intent {
 
     @Id

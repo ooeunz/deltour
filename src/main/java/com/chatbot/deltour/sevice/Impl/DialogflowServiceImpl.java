@@ -3,13 +3,16 @@ package com.chatbot.deltour.sevice.Impl;
 import com.chatbot.deltour.dto.FulfillmentTextDto;
 import com.chatbot.deltour.domain.detectIntent.Intent;
 import com.chatbot.deltour.repository.IntentRepository;
+import com.chatbot.deltour.security.tokens.PostAuthorizationToken;
 import com.chatbot.deltour.sevice.DialogflowService;
 import com.chatbot.deltour.util.ResponseMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.Http;
 import com.google.cloud.dialogflow.v2.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -18,7 +21,6 @@ import java.util.Map;
 
 /**
  * @author ooeunz
- *
  */
 
 @Service
@@ -27,8 +29,12 @@ public class DialogflowServiceImpl implements DialogflowService {
     @Autowired
     private IntentRepository intentRepository;
 
-    private String projectId = "deltour-mark-2";
-    private String languageCode = "ko";
+    @Value("${dialogflow.projectId}")
+    private String projectId;
+
+    @Value("${dialogflow.languageCode}")
+    private String languageCode;
+
 
     private Map<String, Object> convertGoogleParameter(Map<String, com.google.protobuf.Value> parameters) {
 
@@ -37,7 +43,7 @@ public class DialogflowServiceImpl implements DialogflowService {
         for (String key : parameters.keySet()) {
 
             String[] string_value = parameters.get(key).toString().split(" ");
-            String str = string_value[string_value.length-1].replaceAll("\"", "").replaceAll("\n", "");
+            String str = string_value[string_value.length - 1].replaceAll("\"", "").replaceAll("\n", "");
 
             googleParameter.put(key, str);
         }
@@ -55,10 +61,15 @@ public class DialogflowServiceImpl implements DialogflowService {
         return null;
     }
 
+    private String getSessionId(Authentication authentication) {
+
+        PostAuthorizationToken token = (PostAuthorizationToken) authentication;
+
+        return token.getAccountContext().getUsername();
+    }
+
     @Override
     public ResponseMessage detectIntentTexts(String queryTxt, String sessionId) throws Exception {
-
-        ObjectMapper mapper = new ObjectMapper();
 
         FulfillmentTextDto fulfillmentTextDTO = new FulfillmentTextDto();
 

@@ -32,17 +32,17 @@ public class ResponseJsonDto {
         this.json.setData(null);
     }
 
-    public Map<String, Object> convertObjectToMap(Object obj){
+    public Map<String, Object> convertObjectToMap(Object obj) {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
         Field[] fields = obj.getClass().getDeclaredFields();
 
-        for (int i=0; i < fields.length; i++){
+        for (int i = 0; i < fields.length; i++) {
             fields[i].setAccessible(true);
-            try{
+            try {
                 map.put(fields[i].getName(), fields[i].get(obj));
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

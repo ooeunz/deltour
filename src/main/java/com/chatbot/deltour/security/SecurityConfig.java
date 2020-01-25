@@ -95,12 +95,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/h2-console/*", "/auth/**").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().authenticated()
-            .and()
+                .and()
                 .cors()
-            .and()
+                .and()
                 .csrf().disable()
                 .headers().frameOptions().disable()
-            .and()
+                .and()
                 .addFilterBefore(formLoginFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }

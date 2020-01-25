@@ -13,7 +13,7 @@ public class PostAuthorizationToken extends UsernamePasswordAuthenticationToken 
     }
 
     public AccountContext getAccountContext() {
-        return (AccountContext)super.getPrincipal();
+        return (AccountContext) super.getPrincipal();
     }
 
     public static PostAuthorizationToken getTokenFromAccountContext(AccountContext context) {

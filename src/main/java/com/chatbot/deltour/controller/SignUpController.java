@@ -14,7 +14,7 @@ public class SignUpController {
     private SignUpService signUpService;
 
     @PostMapping("/signUp")
-    public String  SignUp(@RequestBody Map<String, Object> obj) {
+    public String SignUp(@RequestBody Map<String, Object> obj) {
         return signUpService.signUp(obj);
     }
 }

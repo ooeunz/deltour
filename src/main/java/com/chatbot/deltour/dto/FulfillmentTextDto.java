@@ -21,6 +21,7 @@ public class FulfillmentTextDto {
 
     // To check isSentByCurrentUser in ReactJs
     private String author;
+
     public FulfillmentTextDto() {
 
     }

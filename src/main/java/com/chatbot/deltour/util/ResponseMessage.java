@@ -27,7 +27,7 @@ public class ResponseMessage {
     public ResponseMessage(HttpStatus httpStatus) {
         this.data = new HashMap<>();
         this.code = httpStatus.value();
-        this.status = (httpStatus.isError())? false:true;
+        this.status = (httpStatus.isError()) ? false : true;
         this.message = httpStatus.getReasonPhrase();
         this.timestamp = new Date();
     }

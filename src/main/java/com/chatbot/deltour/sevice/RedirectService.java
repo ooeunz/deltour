@@ -10,13 +10,13 @@ import java.util.Map;
 
 /**
  * @author ooeunz
- *
  */
 
 @Service
 public class RedirectService {
 
-    public RedirectService() {}
+    public RedirectService() {
+    }
 
     public ResponseMessage RedirectQueryTxt(String queryTxt, String author) {
 
